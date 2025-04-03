@@ -8,6 +8,9 @@ import Model.Account;
 import Model.Message;
 import java.util.List;
 
+import DAO.AccountDAO;
+import DAO.MessageDAO;
+
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
  * found in readme.md as well as the test cases. You should
@@ -15,13 +18,13 @@ import java.util.List;
  */
 public class SocialMediaController {
 
-    private final AccountService accountService;
-    private final MessageService messageService;
+    private final AccountService accountService = new AccountService(new AccountDAO());
+    private final MessageService messageService = new MessageService(new MessageDAO());
 
-    public SocialMediaController(AccountService accountService, MessageService messageService) {
-        this.accountService = accountService;
-        this.messageService = messageService;
-    }
+    // public SocialMediaController(AccountService accountService, MessageService messageService) {
+    //     this.accountService = accountService;
+    //     this.messageService = messageService;
+    // }
 
     /**
      * In order for the test cases to work, you will need to write the endpoints in the startAPI() method, as the test

@@ -12,7 +12,7 @@ public class AccountService {
     
     // Register a user 
     public Account registerUser(Account account) {
-        if (account.getUsername() == null || account.getUsername().isBlank() ||
+        if (account.getUsername() == null || account.getUsername().trim().isEmpty() ||
             account.getPassword() == null || account.getPassword().length() < 4 ||
             accountDAO.getUserByUsername(account.getUsername()) != null) {
                 return null;

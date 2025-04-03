@@ -11,17 +11,25 @@ public class AccountDAO {
 
     // Register a new user
     public Account registerUser(Account account) {
-        String sql = "INSERT INTO Account (username, password) VALUES (?, ?) RETURNING account_id";
+
+        if (getUserByUsername(account.getUsername()) != null) {
+            return null;
+        }
+
+        String sql = "INSERT INTO Account (username, password) VALUES (?, ?)";
         try (Connection conn = ConnectionUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             
             ps.setString(1, account.getUsername());
             ps.setString(2, account.getPassword());
-            ResultSet rs = ps.executeQuery();
+            int affectedRows = ps.executeUpdate();
 
-            if (rs.next()) {
-                account.setAccount_id(rs.getInt("account_id"));
-                return account;
+            if (affectedRows > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    account.setAccount_id(rs.getInt(1));
+                    return account;
+                }
             }
 
         } catch (SQLException e) {
