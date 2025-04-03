@@ -13,8 +13,8 @@ import Util.ConnectionUtil;
 public class Main {
     public static void main(String[] args) {
 
-        AccountDAO accountDAO = new AccountDAO(ConnectionUtil.getConnection());
-        MessageDAO messageDAO = new MessageDAO(ConnectionUtil.getConnection());
+        AccountDAO accountDAO = new AccountDAO();
+        MessageDAO messageDAO = new MessageDAO();
 
         AccountService accountService = new AccountService(accountDAO);
         MessageService messageService = new MessageService(messageDAO);

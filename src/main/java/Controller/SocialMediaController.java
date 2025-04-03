@@ -58,7 +58,7 @@ public class SocialMediaController {
     // Enpoint: post register
     private void registerUser(Context ctx) {
         Account account = ctx.bodyAsClass(Account.class);
-        Account createdAccount = accountService.registerAccount(account);
+        Account createdAccount = accountService.registerUser(account);
 
         if (createdAccount != null) {
             ctx.json(createdAccount);
@@ -70,7 +70,7 @@ public class SocialMediaController {
     // Enpoint: post login
     private void loginUser(Context ctx) {
         Account account = ctx.bodyAsClass(Account.class);
-        Account loggedInAccount = accountService.authenticateAccount(account);
+        Account loggedInAccount = accountService.loginUser(account);
 
         if (loggedInAccount != null) {
             ctx.json(loggedInAccount);

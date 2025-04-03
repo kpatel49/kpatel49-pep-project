@@ -36,15 +36,15 @@ public class MessageService {
     }
 
     // Update a message by ID
-    public Message updateMessage(int messageId, String newText) {
-        if (newText == null || newText.isBlank() || newText.length() > 255) {
+    public Message updateMessage(int messageId, Message updatedMessage) {
+        if (updatedMessage.getMessage_text() == null || updatedMessage.getMessage_text().isBlank() || updatedMessage.getMessage_text().length() > 255) {
             return null;
         }
-        return messageDAO.updateMessage(messageId, newText);
+        return messageDAO.updateMessage(messageId, updatedMessage.getMessage_text());
     }
 
     // Retrieve messages by user ID
-    public List<Message> getMessagesByUserId(int userId) {
+    public List<Message> getMessagesByUser(int userId) {
         return messageDAO.getMessagesByUserId(userId);
     }
     
