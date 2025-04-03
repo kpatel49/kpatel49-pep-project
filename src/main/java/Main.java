@@ -1,5 +1,10 @@
 import Controller.SocialMediaController;
 import io.javalin.Javalin;
+import DAO.AccountDAO;
+import DAO.MessageDAO;
+import Service.AccountService;
+import Service.MessageService;
+import Util.ConnectionUtil;
 
 /**
  * This class is provided with a main method to allow you to manually run and test your application. This class will not
@@ -7,7 +12,14 @@ import io.javalin.Javalin;
  */
 public class Main {
     public static void main(String[] args) {
-        SocialMediaController controller = new SocialMediaController();
+
+        AccountDAO accountDAO = new AccountDAO(ConnectionUtil.getConnection());
+        MessageDAO messageDAO = new MessageDAO(ConnectionUtil.getConnection());
+
+        AccountService accountService = new AccountService(accountDAO);
+        MessageService messageService = new MessageService(messageDAO);
+
+        SocialMediaController controller = new SocialMediaController(accountService, messageService);
         Javalin app = controller.startAPI();
         app.start(8080);
     }
